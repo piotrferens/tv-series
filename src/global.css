@@ -13,10 +13,16 @@
   flex-wrap: wrap;
 }
 
+.allSerials {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .serialWrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-decoration: none;
 }
 
 .imageWrapper {
@@ -75,7 +81,7 @@ figure:hover::before {
   }
   40% {
     opacity: 1;
-    background: rgba(213, 34, 160, 0.2);
+    background: rgba(180, 41, 223, 0.315);
   }
   100% {
     width: 200%;

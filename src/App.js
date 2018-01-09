@@ -1,9 +1,14 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
+import HomePage from "./HomePage";
+import SerialPage from "./SerialPage";
 
 class App extends Component {
   state = {
     allSerials: [],
-    page: ""
+    page: "",
+    selectedSerial: null
   };
 
   componentDidMount = () => {
@@ -16,24 +21,40 @@ class App extends Component {
       .then(response => this.setState({ allSerials: response.tv_shows }));
   };
 
+  selectSerial = id => {
+    const correspondig = this.state.allSerials.find(s => s.id === id);
+    this.setState({ selectedSerial: correspondig });
+  };
+
   render() {
+    const serialName = this.state.allSerials.map(e => e.name);
+    console.log(serialName);
+
+    const serialName1 = this.state.allSerials[0];
+    console.log(serialName1);
+
     return (
-      <div className="app">
-        {this.state.allSerials.map(serial => (
-          <div className="serialWrapper" key={serial.id}>
-            <div className="imageWrapper">
-              <figure>
-                <img
-                  className="image"
-                  src={serial.image_thumbnail_path}
-                  alt=""
-                />
-              </figure>
-            </div>
-            <span>{serial.name}</span>
-          </div>
-        ))}
-      </div>
+      <Router>
+        <div className="app">
+          <Route
+            exact
+            path="/"
+            render={props => (
+              <HomePage
+                selectSerial={this.selectSerial}
+                allSerials={this.state.allSerials}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/:serial"
+            render={props => (
+              <SerialPage selectedSerial={this.state.selectedSerial} />
+            )}
+          />
+        </div>
+      </Router>
     );
   }
 }
