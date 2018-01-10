@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default class SerialPage extends React.Component {
   componentWillMount() {
@@ -9,19 +10,35 @@ export default class SerialPage extends React.Component {
 
     return selectedSerial ? (
       <div className="serialPage">
+        <Link to="/" title="Previous" className="arrow prev" />
         <div className="serialPosition">
           <div
             className="serialImage"
             onClick={() =>
-              this.props.handleLike(this.props.selectedSerial.id, 1)
+              this.props.handelLike(this.props.selectedSerial.id, 1)
             }
           >
-            <img src={selectedSerial.image_thumbnail_path} />
+            <img
+              src={selectedSerial.image_thumbnail_path}
+              alt={selectedSerial.name}
+            />
           </div>
           <div className="serialInfo">
-            <span>{selectedSerial.name} </span>
-            <span>{selectedSerial.country} </span>
-            <span>{selectedSerial.network}</span>
+            <div>
+              <span>{selectedSerial.name} </span>
+              <span>{selectedSerial.country} </span>
+              <span>{selectedSerial.network}</span>
+            </div>
+            <div
+              className="input"
+              onChange={this.props.onComment}
+              value={this.props.comment}
+            >
+              <input
+                //  onChange={this.props.addComments}
+                placeholder="Dodaj komentarz..."
+              />
+            </div>
           </div>
         </div>
       </div>

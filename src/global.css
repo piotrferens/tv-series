@@ -95,17 +95,64 @@ figure:hover::before {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  width: 100vh;
+  width: 100%;
 }
 
 .serialPosition {
+  display: flex;
+  height: 450px;
+  border: 1px solid black;
 }
 
 .serialImage {
 }
 
 .serialImage > img {
+  height: 450px;
 }
 
 .serialInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 300px;
+  align-items: center;
+}
+
+.arrow {
+  display: inline-block;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 50px;
+  left: 50px;
+  background: transparent;
+  text-indent: -9999px;
+  border-top: 2px solid gray;
+  border-left: 2px solid gray;
+  transition: all 0.3s ease-in-out;
+  text-decoration: none;
+  color: transparent;
+}
+
+.arrow:hover {
+  border-color: rgb(43, 42, 42);
+  border-width: 6px;
+}
+.arrow.prev {
+  transform: rotate(-45deg);
+}
+
+.input {
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.input > input {
+  border: 0px;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  padding: 5px;
 }

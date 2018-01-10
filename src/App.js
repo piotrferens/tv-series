@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Link } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 import HomePage from "./HomePage";
 import SerialPage from "./SerialPage";
@@ -8,7 +8,8 @@ class App extends Component {
   state = {
     allSerials: [],
     page: "",
-    selectedSerialId: null
+    selectedSerialId: null,
+    comment: ""
   };
 
   componentDidMount() {
@@ -22,7 +23,8 @@ class App extends Component {
         this.setState({
           allSerials: response.tv_shows.map(serial => ({
             ...serial,
-            likes: 0
+            likes: 0,
+            comments: []
           }))
         });
       });
@@ -34,7 +36,7 @@ class App extends Component {
     });
   };
 
-  handleLike = (id, value) => {
+  handelLike = (id, value) => {
     const allSerials = this.state.allSerials.map(e => {
       if (e.id === id) {
         return { ...e, likes: e.likes + value };
@@ -46,6 +48,11 @@ class App extends Component {
       allSerials: allSerials
     });
   };
+  onComment = event => {
+    const { value } = event.target;
+    this.setState({ comment: value });
+  };
+  addComments = id => {};
 
   render() {
     const selectedSerial = this.state.allSerials.find(
@@ -72,7 +79,10 @@ class App extends Component {
               {...props}
               selectSerial={this.selectSerial}
               selectedSerial={selectedSerial}
-              handleLike={this.handleLike}
+              handelLike={this.handelLike}
+              onComment={this.onComment}
+              comment={this.state.comment}
+              // addComments={this.addComments}
             />
           )}
         />
