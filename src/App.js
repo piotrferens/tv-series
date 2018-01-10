@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Route, Link } from "react-router-dom";
 
 import HomePage from "./HomePage";
 import SerialPage from "./SerialPage";
@@ -8,53 +8,75 @@ class App extends Component {
   state = {
     allSerials: [],
     page: "",
-    selectedSerial: null
+    selectedSerialId: null
   };
 
-  componentDidMount = () => {
+  componentDidMount() {
     this.fetchSerials();
-  };
+  }
 
   fetchSerials = () => {
     fetch("https://www.episodate.com/api/most-popular?page=1")
       .then(response => response.json())
-      .then(response => this.setState({ allSerials: response.tv_shows }));
+      .then(response => {
+        this.setState({
+          allSerials: response.tv_shows.map(serial => ({
+            ...serial,
+            likes: 0
+          }))
+        });
+      });
   };
 
   selectSerial = id => {
-    const correspondig = this.state.allSerials.find(s => s.id === id);
-    this.setState({ selectedSerial: correspondig });
+    this.setState({
+      selectedSerialId: id
+    });
+  };
+
+  handleLike = (id, value) => {
+    const allSerials = this.state.allSerials.map(e => {
+      if (e.id === id) {
+        return { ...e, likes: e.likes + value };
+      }
+      return e;
+    });
+
+    this.setState({
+      allSerials: allSerials
+    });
   };
 
   render() {
-    const serialName = this.state.allSerials.map(e => e.name);
-    console.log(serialName);
-
-    const serialName1 = this.state.allSerials[0];
-    console.log(serialName1);
-
+    const selectedSerial = this.state.allSerials.find(
+      s => s.id === this.state.selectedSerialId
+    );
     return (
-      <Router>
-        <div className="app">
-          <Route
-            exact
-            path="/"
-            render={props => (
-              <HomePage
-                selectSerial={this.selectSerial}
-                allSerials={this.state.allSerials}
-              />
-            )}
-          />
-          <Route
-            exact
-            path="/:serial"
-            render={props => (
-              <SerialPage selectedSerial={this.state.selectedSerial} />
-            )}
-          />
-        </div>
-      </Router>
+      <div className="app">
+        <Route
+          exact
+          path="/"
+          render={props => (
+            <HomePage
+              {...props}
+              selectSerial={this.selectSerial}
+              allSerials={this.state.allSerials}
+            />
+          )}
+        />
+        <Route
+          exact
+          path="/:serial"
+          render={props => (
+            <SerialPage
+              {...props}
+              selectSerial={this.selectSerial}
+              selectedSerial={selectedSerial}
+              handleLike={this.handleLike}
+            />
+          )}
+        />
+      </div>
     );
   }
 }

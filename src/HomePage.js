@@ -9,7 +9,7 @@ export default class HomePage extends React.Component {
       <div className="allSerials">
         {this.props.allSerials.map(serial => (
           <Link
-            to={serial.name}
+            to={`${serial.id}`}
             className="serialWrapper"
             key={serial.id}
             onClick={() => this.props.selectSerial(serial.id)}
