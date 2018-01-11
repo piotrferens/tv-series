@@ -8,8 +8,7 @@ class App extends Component {
   state = {
     allSerials: [],
     page: "",
-    selectedSerialId: null,
-    comment: ""
+    selectedSerialId: null
   };
 
   componentDidMount() {
@@ -48,11 +47,24 @@ class App extends Component {
       allSerials: allSerials
     });
   };
-  onComment = event => {
-    const { value } = event.target;
-    this.setState({ comment: value });
+
+  addComment = (id, commentText) => {
+    const newAllSerials = this.state.allSerials.map(serial => {
+      if (serial.id === id) {
+        return {
+          ...serial,
+          comments: [...serial.comments, { text: commentText, id: Date.now() }]
+        };
+      }
+      return serial;
+    });
+
+    this.setState({ allSerials: newAllSerials });
   };
-  addComments = id => {};
+
+  // addComments = id => {
+  //   const allComments =
+  // };
 
   render() {
     const selectedSerial = this.state.allSerials.find(
@@ -80,9 +92,7 @@ class App extends Component {
               selectSerial={this.selectSerial}
               selectedSerial={selectedSerial}
               handelLike={this.handelLike}
-              onComment={this.onComment}
-              comment={this.state.comment}
-              // addComments={this.addComments}
+              addComment={this.addComment}
             />
           )}
         />

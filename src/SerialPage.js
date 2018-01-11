@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import SerialComments from "./SerialComments";
+
 export default class SerialPage extends React.Component {
   componentWillMount() {
     this.props.selectSerial(Number(this.props.match.params.serial));
@@ -29,16 +31,14 @@ export default class SerialPage extends React.Component {
               <span>{selectedSerial.country} </span>
               <span>{selectedSerial.network}</span>
             </div>
-            <div
-              className="input"
-              onChange={this.props.onComment}
+            {this.props.selectedSerial.comments.map(comment => (
+              <div key={comment.id}>{comment.text}</div>
+            ))}
+            <SerialComments
               value={this.props.comment}
-            >
-              <input
-                //  onChange={this.props.addComments}
-                placeholder="Dodaj komentarz..."
-              />
-            </div>
+              addComment={this.props.addComment}
+              id={this.props.selectedSerial.id}
+            />
           </div>
         </div>
       </div>
