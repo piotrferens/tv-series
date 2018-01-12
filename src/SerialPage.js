@@ -25,7 +25,11 @@ export default class SerialPage extends React.Component {
           <div className="serialInfo">
             <SerialDescription selectedSerial={this.props.selectedSerial} />
 
-            <DisplayingComments selectedSerial={this.props.selectedSerial} />
+            <DisplayingComments
+              selectedSerial={this.props.selectedSerial}
+              commentLikes={this.props.commentLikes}
+              comments={this.props.comments}
+            />
 
             <CommentLogic
               value={this.props.comment}

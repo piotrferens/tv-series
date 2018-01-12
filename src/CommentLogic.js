@@ -12,7 +12,7 @@ export default class CommentLogic extends React.Component {
 
   onKeyDown = event => {
     if (event.keyCode === 13) {
-      this.props.addComment(this.props.id, this.state.comment);
+      this.props.addComment(this.state.comment);
       this.setState({ comment: "" });
     }
   };

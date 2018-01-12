@@ -6,9 +6,9 @@ import SerialPage from "./SerialPage";
 
 class App extends Component {
   state = {
-    allSerials: [],
-    page: "",
-    selectedSerialId: null
+    serials: [],
+    selectedSerialId: null,
+    comments: {}
   };
 
   componentDidMount() {
@@ -20,10 +20,9 @@ class App extends Component {
       .then(response => response.json())
       .then(response => {
         this.setState({
-          allSerials: response.tv_shows.map(serial => ({
+          serials: response.tv_shows.map(serial => ({
             ...serial,
-            likes: 0,
-            comments: []
+            likes: 0
           }))
         });
       });
@@ -36,36 +35,58 @@ class App extends Component {
   };
 
   handelLike = (id, value) => {
-    const allSerials = this.state.allSerials.map(e => {
-      if (e.id === id) {
-        return { ...e, likes: e.likes + value };
-      }
-      return e;
-    });
-
-    this.setState({
-      allSerials: allSerials
-    });
-  };
-
-  addComment = (id, commentText) => {
-    const newAllSerials = this.state.allSerials.map(serial => {
+    const serials = this.state.serials.map(serial => {
       if (serial.id === id) {
-        return {
-          ...serial,
-          comments: [...serial.comments, { text: commentText, id: Date.now() }]
-        };
+        return { ...serial, likes: serial.likes + value };
       }
       return serial;
     });
 
-    this.setState({ allSerials: newAllSerials });
+    this.setState({
+      serials: serials
+    });
+  };
+
+  addComment = commentText => {
+    const { selectedSerialId, comments } = this.state;
+
+    this.setState({
+      comments: {
+        ...comments,
+        [selectedSerialId]: [
+          ...(comments[selectedSerialId] || []),
+          { text: commentText, id: Date.now(), liked: false }
+        ]
+      }
+    });
+  };
+
+  commentLikes = id => {
+    const serialComments = this.state.comments[this.state.selectedSerialId].map(
+      comment => {
+        if (comment.id === id) {
+          return {
+            ...comment,
+            liked: !comment.liked
+          };
+        }
+        return comment;
+      }
+    );
+
+    this.setState({
+      comments: {
+        ...this.state.comments,
+        [this.state.selectedSerialId]: serialComments
+      }
+    });
   };
 
   render() {
-    const selectedSerial = this.state.allSerials.find(
+    const selectedSerial = this.state.serials.find(
       s => s.id === this.state.selectedSerialId
     );
+    const comments = this.state.comments[this.state.selectedSerialId] || [];
     return (
       <div className="app">
         <Route
@@ -75,7 +96,7 @@ class App extends Component {
             <HomePage
               {...props}
               selectSerial={this.selectSerial}
-              allSerials={this.state.allSerials}
+              serials={this.state.serials}
             />
           )}
         />
@@ -89,6 +110,8 @@ class App extends Component {
               selectedSerial={selectedSerial}
               handelLike={this.handelLike}
               addComment={this.addComment}
+              commentLikes={this.commentLikes}
+              comments={comments}
             />
           )}
         />

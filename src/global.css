@@ -13,7 +13,7 @@
   flex-wrap: wrap;
 }
 
-.allSerials {
+.serials {
   display: flex;
   flex-wrap: wrap;
 }
@@ -177,7 +177,7 @@ figure:hover::before {
 
 .border {
   border-top: 1px solid grey;
-  width: 239px;
+  width: 233px;
 }
 
 .allComents {
