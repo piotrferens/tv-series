@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 import CommentLogic from "./CommentLogic";
 import DisplayingComments from "./DisplayingComments";
+import SerialDescription from "./SerialDescription";
+import SerialImage from "./SerialImage";
 
 export default class SerialPage extends React.Component {
   componentWillMount() {
@@ -15,24 +17,10 @@ export default class SerialPage extends React.Component {
       <div className="serialPage">
         <Link to="/" title="Previous" className="arrow prev" />
         <div className="serialPosition">
-          <div
-            className="serialImage"
-            onClick={() =>
-              this.props.handelLike(this.props.selectedSerial.id, 1)
-            }
-          >
-            <img
-              src={selectedSerial.image_thumbnail_path}
-              alt={selectedSerial.name}
-            />
-          </div>
+          <SerialImage selectedSerial={this.props.selectedSerial} />
+
           <div className="serialInfo">
-            <div className="serialDescription">
-              <span>{selectedSerial.name} </span>
-              <span>{selectedSerial.country} </span>
-              <span>{selectedSerial.network} </span>
-              <span>Likes: {selectedSerial.likes}</span>
-            </div>
+            <SerialDescription selectedSerial={this.props.selectedSerial} />
 
             <DisplayingComments selectedSerial={this.props.selectedSerial} />
 
