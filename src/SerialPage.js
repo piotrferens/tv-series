@@ -17,7 +17,10 @@ export default class SerialPage extends React.Component {
       <div className="serialPage">
         <Link to="/" title="Previous" className="arrow prev" />
         <div className="serialPosition">
-          <SerialImage selectedSerial={this.props.selectedSerial} />
+          <SerialImage
+            selectedSerial={this.props.selectedSerial}
+            handelLike={this.props.handelLike}
+          />
 
           <div className="serialInfo">
             <SerialDescription selectedSerial={this.props.selectedSerial} />
