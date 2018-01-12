@@ -1,6 +1,6 @@
 import React from "react";
 
-export default class SerialComments extends React.Component {
+export default class CommentLogic extends React.Component {
   state = {
     comment: ""
   };
@@ -13,8 +13,8 @@ export default class SerialComments extends React.Component {
   onKeyDown = event => {
     if (event.keyCode === 13) {
       this.props.addComment(this.props.id, this.state.comment);
+      this.setState({ comment: "" });
     }
-    this.setState({ comment: "" });
   };
 
   render() {

@@ -115,8 +115,9 @@ figure:hover::before {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 300px;
+  width: 250px;
   align-items: center;
+  padding: 15px 0px 15px 15px;
 }
 
 .arrow {
@@ -136,7 +137,7 @@ figure:hover::before {
 }
 
 .arrow:hover {
-  border-color: rgb(43, 42, 42);
+  border-color: rgb(50, 62, 236);
   border-width: 6px;
 }
 .arrow.prev {
@@ -150,9 +151,40 @@ figure:hover::before {
 }
 
 .input > input {
-  border: 0px;
+  outline: none;
+  border: none;
   display: flex;
   align-items: flex-end;
   width: 100%;
   padding: 5px;
+}
+
+.serialDescription {
+  width: 100%;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.comments {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 359px;
+  margin-top: 15px;
+  height: 100%;
+  width: 100%;
+  word-wrap: break-word;
+}
+
+.border {
+  border-top: 1px solid grey;
+  width: 239px;
+}
+
+.allComents {
+  padding: 5px 10px;
+}
+
+.comment {
+  font-family: monospace;
+  margin-bottom: 5px;
 }

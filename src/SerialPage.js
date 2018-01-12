@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import SerialComments from "./SerialComments";
+import CommentLogic from "./CommentLogic";
+import DisplayingComments from "./DisplayingComments";
 
 export default class SerialPage extends React.Component {
   componentWillMount() {
@@ -26,15 +27,16 @@ export default class SerialPage extends React.Component {
             />
           </div>
           <div className="serialInfo">
-            <div>
+            <div className="serialDescription">
               <span>{selectedSerial.name} </span>
               <span>{selectedSerial.country} </span>
-              <span>{selectedSerial.network}</span>
+              <span>{selectedSerial.network} </span>
+              <span>Likes: {selectedSerial.likes}</span>
             </div>
-            {this.props.selectedSerial.comments.map(comment => (
-              <div key={comment.id}>{comment.text}</div>
-            ))}
-            <SerialComments
+
+            <DisplayingComments selectedSerial={this.props.selectedSerial} />
+
+            <CommentLogic
               value={this.props.comment}
               addComment={this.props.addComment}
               id={this.props.selectedSerial.id}

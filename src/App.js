@@ -62,10 +62,6 @@ class App extends Component {
     this.setState({ allSerials: newAllSerials });
   };
 
-  // addComments = id => {
-  //   const allComments =
-  // };
-
   render() {
     const selectedSerial = this.state.allSerials.find(
       s => s.id === this.state.selectedSerialId
