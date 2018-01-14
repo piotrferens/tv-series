@@ -1,5 +1,7 @@
 import React from "react";
 
+import { LikeIt } from "./ButtonLike";
+
 export default class DisplayingComments extends React.Component {
   render() {
     return (
@@ -11,9 +13,9 @@ export default class DisplayingComments extends React.Component {
               className="comment"
               key={comment.id}
               onClick={() => this.props.commentLikes(comment.id)}
-              style={{ color: comment.liked ? "red" : "black" }}
             >
-              {comment.text}
+              <span>{comment.text}</span>
+              {comment.liked ? <LikeIt /> : null}
             </div>
           ))}
         </div>

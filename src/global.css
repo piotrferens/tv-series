@@ -101,7 +101,6 @@ figure:hover::before {
 .serialPosition {
   display: flex;
   height: 450px;
-  border: 1px solid black;
 }
 
 .serialImage {
@@ -185,8 +184,11 @@ figure:hover::before {
 }
 
 .comment {
+  display: flex;
+  justify-content: space-between;
   font-family: monospace;
   margin-bottom: 5px;
+  cursor: pointer;
 }
 
 .heart {
