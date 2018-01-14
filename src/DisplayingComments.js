@@ -14,7 +14,7 @@ export default class DisplayingComments extends React.Component {
               key={comment.id}
               onClick={() => this.props.commentLikes(comment.id)}
             >
-              <span>{comment.text}</span>
+              <span style={{ width: "94%" }}>{comment.text}</span>
               {comment.liked ? <LikeIt /> : null}
             </div>
           ))}
