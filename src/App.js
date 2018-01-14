@@ -34,9 +34,9 @@ class App extends Component {
     });
   };
 
-  handelLike = (id, value) => {
+  handelLike = value => {
     const serials = this.state.serials.map(serial => {
-      if (serial.id === id) {
+      if (serial.id === this.state.selectedSerialId) {
         return { ...serial, likes: serial.likes + value };
       }
       return serial;
